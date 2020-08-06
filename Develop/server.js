@@ -3,7 +3,6 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 
-
 const app = express();
 const PORT = 8080;
 
@@ -30,7 +29,7 @@ app.get("/notes", function(req, res) {
     });
 
   
-  //this function receives a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client
+  //this function receives a new note to save on the request body, add it to the `db.json` file
   app.post("/api/notes", function(req, res) {        
         //first read the db.json file
         fs.readFile('db/db.json', "utf8", function (err, data) {
@@ -41,7 +40,7 @@ app.get("/notes", function(req, res) {
           var jsonNotes = JSON.parse(data);
           //push to the array of objects
           jsonNotes.push(req.body);
-          //turn the objects into string again and over write the db.json file
+          //turn the new array of objects into string again and over write the db.json file
           fs.writeFile("db/db.json", JSON.stringify(jsonNotes), function(err, result){
             if (err) {
               return console.log(err);
@@ -61,10 +60,9 @@ app.get("/notes", function(req, res) {
           }
           //turn the db.json file into an array of javascript objects
           let jsonNotes = JSON.parse(data);
-          //take out the note with its title matching the id in api/notes/:id
+          //filter out the note that doesn't match with the unique id
           jsonNotes = jsonNotes.filter(note => note.id !== id);
-
-          //turn the objects into string again and over write the db.json file
+          //turn the filtered array into string again and over write the db.json file
           fs.writeFile("db/db.json", JSON.stringify(jsonNotes), function(err, result){
             if (err) {
               return console.log(err);
@@ -74,6 +72,7 @@ app.get("/notes", function(req, res) {
       })
       })
 
+  //* paths overwrite everything else, so this needs to be on the bottom of the js file
   app.get("*", function(req, res) {
         res.sendFile(path.join(__dirname, "public/index.html"));
       });

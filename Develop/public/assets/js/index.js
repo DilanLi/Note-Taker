@@ -55,6 +55,7 @@ const handleNoteSave = function () {
   const newNote = {
     title: $noteTitle.val(),
     text: $noteText.val(),
+    //added in id property, the value is a random number generated that becomes the id identifier
     id: Math.floor(Math.random()*10000)
   };
 
