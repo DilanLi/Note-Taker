@@ -7,7 +7,7 @@ This Note Taker is a browser based application that allows users to create, edit
 ![Screenshot](assets/screenshot2.png) 
 
 ## Deployed Link to App
-
+Heroku: https://mighty-waters-04346.herokuapp.com/
 
 ## Take of Contents
 - [Description](#description)
