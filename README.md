@@ -1,6 +1,8 @@
 # Note-Taker
 
 ## Description  
+This Note Taker is a browser based application that allows users to create, edit and delete notes. The purpose of this project is to practice skills on the backend, which includes creating a server with the Express node pakage; establishing website routes; taking in user input from the client side, get, post and delete data via the server on the backend and updating the data on the front end, etc. 
+
 ![Screenshot](assets/screenshot1.png)  
 ![Screenshot](assets/screenshot2.png) 
 
