@@ -8,20 +8,20 @@ const PORT = process.env.PORT || 3001;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static('Develop/public'));
 
 //routes
 app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "public/index.html"));
+  res.sendFile(path.join(__dirname, "Develop/public/index.html"));
 });
 
 
 app.get("/notes", function(req, res) {
-    res.sendFile(path.join(__dirname, "public/notes.html"));
+    res.sendFile(path.join(__dirname, "Develop/public/notes.html"));
   });
 
   app.get("/api/notes", function(req, res) {
-    fs.readFile("db/db.json", "utf8", function(error, data) {
+    fs.readFile("Develop/db/db.json", "utf8", function(error, data) {
 
       if (error) {
         return console.log(error);
@@ -37,7 +37,7 @@ app.get("/notes", function(req, res) {
   //this function receives a new note to save on the request body, add it to the `db.json` file
   app.post("/api/notes", function(req, res) {        
         //first read the db.json file
-        fs.readFile('db/db.json', "utf8", function (err, data) {
+        fs.readFile('Develop/db/db.json', "utf8", function (err, data) {
           if (err) {
             return console.log(err);
           }
@@ -46,7 +46,7 @@ app.get("/notes", function(req, res) {
           //push to the array of objects
           jsonNotes.push(req.body);
           //turn the new array of objects into string again and over write the db.json file
-          fs.writeFile("db/db.json", JSON.stringify(jsonNotes), function(err, result){
+          fs.writeFile("Develop/db/db.json", JSON.stringify(jsonNotes), function(err, result){
             if (err) {
               return console.log(err);
             } 
@@ -59,7 +59,7 @@ app.get("/notes", function(req, res) {
   app.delete('/api/notes/:id', function (req, res) {
         const id = req.params.id;
         console.log(id);
-        fs.readFile('db/db.json', "utf8", function (err, data) {
+        fs.readFile('Develop/db/db.json', "utf8", function (err, data) {
           if (err) {
             return console.log(err);
           }
@@ -68,7 +68,7 @@ app.get("/notes", function(req, res) {
           //filter out the note that doesn't match with the unique id
           jsonNotes = jsonNotes.filter(note => note.id !== id);
           //turn the filtered array into string again and over write the db.json file
-          fs.writeFile("db/db.json", JSON.stringify(jsonNotes), function(err, result){
+          fs.writeFile("Develop/db/db.json", JSON.stringify(jsonNotes), function(err, result){
             if (err) {
               return console.log(err);
             } 
@@ -79,7 +79,7 @@ app.get("/notes", function(req, res) {
 
   //* paths overwrite everything else, so this needs to be on the bottom of the js file
   app.get("*", function(req, res) {
-        res.sendFile(path.join(__dirname, "public/index.html"));
+        res.sendFile(path.join(__dirname, "Develop/public/index.html"));
       });
 
 //listener
